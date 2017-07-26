@@ -35,6 +35,16 @@ SSO_ADMIN_PASSWORD=VMware1!
 # NTP Servers
 NTP_SERVERS=0.pool.ntp.org
 
+# Load script overrides if they exist
+GLOBAL_RC=global.rc
+if [ -e $GLOBAL_RC ]; then
+	. $GLOBAL_RC
+fi
+OVERRIDE_RC=$(basename $0 .sh).rc
+if [ -e $OVERRIDE_RC ]; then
+	. $OVERRIDE_RC
+fi
+
 ### DO NOT EDIT BEYOND HERE ###
 
 "${OVFTOOL}" --version | grep '4.0.0' > /dev/null 2>&1
