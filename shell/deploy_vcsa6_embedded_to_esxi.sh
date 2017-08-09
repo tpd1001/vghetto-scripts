@@ -47,9 +47,9 @@ fi
 
 ### DO NOT EDIT BEYOND HERE ###
 
-"${OVFTOOL}" --version | grep '4.0.0' > /dev/null 2>&1
+"${OVFTOOL}" --version | grep '4\.[0-9]\.[0-9]' > /dev/null 2>&1
 if [ $? -eq 1 ]; then
-	echo "This script requires ovftool 4.0.0 ..."
+	echo "This script requires ovftool 4.0.0 or greater ..."
 	exit 1
 fi
 
