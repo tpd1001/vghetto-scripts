@@ -3,7 +3,18 @@
 # Site: www.virtuallyghetto.com
 # Reference: http://www.virtuallyghetto.com/2015/01/ultimate-automation-guide-to-deploying-vcsa-6-0-part-2-platform-services-controller-node.html
 
-OVFTOOL="/Volumes/Storage/Images/Beta/VMware-VCSA-all-6.0.0-2497477/vcsa-cli-installer/mac/VMware OVF Tool/ovftool"
+case `uname` in
+	Linux)
+	OVFTOOL="/usr/bin/ovftool"
+	;;
+	Darwin)
+	OVFTOOL="/Applications/VMware OVF Tool/ovftool"
+	;;
+	*)
+	echo "Unsupported OS: `uname`"
+	exit 1
+	;;
+esac
 VCSA_OVA=/Volumes/Storage/Images/Beta/VMware-VCSA-all-6.0.0-2497477/vcsa/vmware-vcsa
 
 VCENTER_SERVER=192.168.1.60
@@ -35,11 +46,21 @@ SSO_ADMIN_PASSWORD=VMware1!
 # NTP Servers
 NTP_SERVERS=0.pool.ntp.org
 
+# Load script overrides if they exist
+GLOBAL_RC=global.rc
+if [ -e $GLOBAL_RC ]; then
+	. $GLOBAL_RC
+fi
+OVERRIDE_RC=$(basename $0 .sh).rc
+if [ -e $OVERRIDE_RC ]; then
+	. $OVERRIDE_RC
+fi
+
 ### DO NOT EDIT BEYOND HERE ###
 
-"${OVFTOOL}" --version | grep '4.1.0' > /dev/null 2>&1
+"${OVFTOOL}" --version | grep '4\.[1-9]\.[0-9]' > /dev/null 2>&1
 if [ $? -eq 1 ]; then
-	echo "This script requires ovftool 4.1.0 ..."
+	echo "This script requires ovftool 4.1.0 or greater ..."
 	exit 1
 fi
 
