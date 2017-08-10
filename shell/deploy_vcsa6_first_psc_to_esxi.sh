@@ -3,7 +3,18 @@
 # Site: www.virtuallyghetto.com
 # Reference: http://www.virtuallyghetto.com/2015/01/ultimate-automation-guide-to-deploying-vcsa-6-0-part-2-platform-services-controller-node.html
 
-OVFTOOL="/Applications/VMware OVF Tool/ovftool"
+case `uname` in
+	Linux)
+	OVFTOOL="/usr/bin/ovftool"
+	;;
+	Darwin)
+	OVFTOOL="/Applications/VMware OVF Tool/ovftool"
+	;;
+	*)
+	echo "Unsupported OS: `uname`"
+	exit 1
+	;;
+esac
 VCSA_OVA=/Volumes/Storage/Images/Beta/VMware-VCSA-all-6.0.0-2497477/vcsa/vmware-vcsa
 
 ESXI_HOST=192.168.1.200
