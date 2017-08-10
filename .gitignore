@@ -1,0 +1,6 @@
+# ignore leftovers from GNU patch
+*.orig
+*.rej
+
+# ignore vim swap files
+*.sw[pomn]
