@@ -1,3 +1,7 @@
+# ignore patches and config files
+patch_*
+*.rc
+
 # ignore leftovers from GNU patch
 *.orig
 *.rej
