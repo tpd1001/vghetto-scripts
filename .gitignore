@@ -1,6 +1,11 @@
-# ignore patches and config files
-patch_*
+# ignore local customisation files
 *.rc
+
+# ignore history files
+hist*
+
+# ignore patches
+patch_*
 
 # ignore leftovers from GNU patch
 *.orig
